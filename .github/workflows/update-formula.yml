@@ -51,7 +51,9 @@ jobs:
 
       - name: Update formula
         run: |
-          VERSION="${{ steps.vars.outputs.version }}"
+          RAW_VERSION="${{ steps.vars.outputs.version }}"
+          # Strip leading 'v' if present (tag is v0.4.0, formula uses 0.4.0)
+          VERSION="${RAW_VERSION#v}"
           FORMULA="Formula/workspace-qdrant.rb"
 
           # Update version
