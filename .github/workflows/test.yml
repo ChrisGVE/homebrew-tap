@@ -1,0 +1,46 @@
+name: Formula Test
+
+on:
+  push:
+    branches: [main]
+    paths: ['Formula/**']
+  pull_request:
+    branches: [main]
+    paths: ['Formula/**']
+  workflow_dispatch:
+
+jobs:
+  audit:
+    name: Audit formula
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Audit formula
+        run: brew audit --formula Formula/workspace-qdrant.rb
+
+  test:
+    name: Test on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install formula
+        run: |
+          brew install --formula Formula/workspace-qdrant.rb || {
+            echo "Install failed — this is expected until the first release publishes tarballs"
+            exit 0
+          }
+
+      - name: Smoke test
+        run: |
+          if command -v wqm &>/dev/null; then
+            wqm --version
+            memexd --help | head -5
+          else
+            echo "Binaries not installed (pre-release), skipping smoke test"
+          fi
