@@ -1,52 +1,28 @@
-# Homebrew Tap for workspace-qdrant-mcp
+# ChrisGVE Homebrew Tap
 
-Homebrew formulae for [workspace-qdrant-mcp](https://github.com/ChrisGVE/workspace-qdrant-mcp) — a project-scoped vector database for AI assistants with hybrid search.
+Custom Homebrew formulae by [ChrisGVE](https://github.com/ChrisGVE).
 
-## Install
-
-```bash
-brew install ChrisGVE/tap/workspace-qdrant
-```
-
-## Start the daemon
+## Usage
 
 ```bash
-brew services start workspace-qdrant
+brew tap ChrisGVE/tap
 ```
 
-## Prerequisites
-
-workspace-qdrant-mcp requires a running [Qdrant](https://qdrant.tech/) instance:
+Then install any available formula:
 
 ```bash
-docker run -d --name qdrant -p 6333:6333 -v qdrant_storage:/qdrant/storage qdrant/qdrant
+brew install ChrisGVE/tap/<formula>
 ```
 
-## Verify
+## Available Formulae
+
+| Formula | Description |
+|---------|-------------|
+| [workspace-qdrant](https://github.com/ChrisGVE/workspace-qdrant-mcp) | Project-scoped vector database MCP server with hybrid search |
+
+## Troubleshooting
 
 ```bash
-wqm admin health
+brew update
+brew doctor
 ```
-
-## Service management
-
-```bash
-brew services start workspace-qdrant    # Start daemon
-brew services stop workspace-qdrant     # Stop daemon
-brew services restart workspace-qdrant  # Restart daemon
-brew services info workspace-qdrant     # Show service status
-```
-
-## Upgrade
-
-```bash
-brew upgrade workspace-qdrant
-brew services restart workspace-qdrant
-```
-
-## Documentation
-
-- [Quick Start](https://github.com/ChrisGVE/workspace-qdrant-mcp/blob/main/docs/quick-start.md)
-- [User Manual](https://github.com/ChrisGVE/workspace-qdrant-mcp/blob/main/docs/user-manual.md)
-- [CLI Reference](https://github.com/ChrisGVE/workspace-qdrant-mcp/blob/main/docs/reference/cli.md)
-- [MCP Tools Reference](https://github.com/ChrisGVE/workspace-qdrant-mcp/blob/main/docs/reference/mcp-tools.md)
