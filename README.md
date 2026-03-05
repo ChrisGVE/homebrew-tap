@@ -18,7 +18,7 @@ brew install ChrisGVE/tap/<formula>
 
 | Formula | Description |
 |---------|-------------|
-| [workspace-qdrant](https://github.com/ChrisGVE/workspace-qdrant-mcp) | Project-scoped vector database MCP server with hybrid search |
+| [workspace-qdrant-mcp](https://github.com/ChrisGVE/workspace-qdrant-mcp) | Project-scoped vector database MCP server with hybrid search |
 
 ## Troubleshooting
 
