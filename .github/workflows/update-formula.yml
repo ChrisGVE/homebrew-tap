@@ -52,33 +52,26 @@ jobs:
       - name: Update formula
         run: |
           RAW_VERSION="${{ steps.vars.outputs.version }}"
-          # Strip leading 'v' if present (tag is v0.4.0, formula uses 0.4.0)
           VERSION="${RAW_VERSION#v}"
-          FORMULA="Formula/workspace-qdrant.rb"
+          FORMULA="Formula/workspace-qdrant-mcp.rb"
 
-          # Update version
           sed -i "s/version \".*\"/version \"${VERSION}\"/" "$FORMULA"
 
-          # Update SHA256 checksums — replace commented placeholders with real values
-          # darwin-arm64
           SHA="${{ steps.vars.outputs.darwin_arm64 }}"
           if [ -n "$SHA" ]; then
             sed -i "/darwin-arm64/,/sha256/{s|# sha256.*|sha256 \"${SHA}\"|;s|sha256 \"[a-f0-9]\{64\}\"|sha256 \"${SHA}\"|}" "$FORMULA"
           fi
 
-          # darwin-x64
           SHA="${{ steps.vars.outputs.darwin_x64 }}"
           if [ -n "$SHA" ]; then
             sed -i "/darwin-x64/,/sha256/{s|# sha256.*|sha256 \"${SHA}\"|;s|sha256 \"[a-f0-9]\{64\}\"|sha256 \"${SHA}\"|}" "$FORMULA"
           fi
 
-          # linux-arm64
           SHA="${{ steps.vars.outputs.linux_arm64 }}"
           if [ -n "$SHA" ]; then
             sed -i "/linux-arm64/,/sha256/{s|# sha256.*|sha256 \"${SHA}\"|;s|sha256 \"[a-f0-9]\{64\}\"|sha256 \"${SHA}\"|}" "$FORMULA"
           fi
 
-          # linux-x64
           SHA="${{ steps.vars.outputs.linux_x64 }}"
           if [ -n "$SHA" ]; then
             sed -i "/linux-x64/,/sha256/{s|# sha256.*|sha256 \"${SHA}\"|;s|sha256 \"[a-f0-9]\{64\}\"|sha256 \"${SHA}\"|}" "$FORMULA"
@@ -90,7 +83,7 @@ jobs:
       - name: Create pull request
         uses: peter-evans/create-pull-request@v6
         with:
-          title: "formula: update workspace-qdrant to ${{ steps.vars.outputs.version }}"
+          title: "formula: update workspace-qdrant-mcp to ${{ steps.vars.outputs.version }}"
           body: |
             Automated formula update for workspace-qdrant-mcp v${{ steps.vars.outputs.version }}.
 
@@ -99,4 +92,4 @@ jobs:
 
             Release: https://github.com/ChrisGVE/workspace-qdrant-mcp/releases/tag/v${{ steps.vars.outputs.version }}
           branch: update-${{ steps.vars.outputs.version }}
-          commit-message: "formula: update workspace-qdrant to ${{ steps.vars.outputs.version }}"
+          commit-message: "formula: update workspace-qdrant-mcp to ${{ steps.vars.outputs.version }}"
