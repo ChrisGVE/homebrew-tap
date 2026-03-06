@@ -47,10 +47,13 @@ jobs:
 
       - name: Install formula
         run: |
+          echo "::stop-commands::brew-install"
           brew install --formula workspace-qdrant-mcp || {
+            echo "::brew-install::"
             echo "Install failed — this is expected until the first release publishes tarballs"
             exit 0
           }
+          echo "::brew-install::"
 
       - name: Smoke test
         run: |
