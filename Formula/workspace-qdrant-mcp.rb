@@ -9,7 +9,7 @@
 class WorkspaceQdrantMcp < Formula
   desc "Project-scoped vector database for AI assistants with hybrid search"
   homepage "https://github.com/ChrisGVE/workspace-qdrant-mcp"
-  version "0.4.0"
+  version "0.1.0"
   license "MIT"
 
   # Platform-specific pre-built binary downloads
