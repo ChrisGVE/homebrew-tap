@@ -16,8 +16,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Register as tap
+        run: |
+          mkdir -p "$(brew --repository)/Library/Taps/chrisgve"
+          ln -s "$GITHUB_WORKSPACE" "$(brew --repository)/Library/Taps/chrisgve/homebrew-tap"
+
       - name: Audit formula
-        run: brew audit --formula Formula/workspace-qdrant.rb
+        run: brew audit --formula workspace-qdrant-mcp
 
   test:
     name: Test on ${{ matrix.os }}
@@ -29,9 +34,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Register as tap
+        run: |
+          mkdir -p "$(brew --repository)/Library/Taps/chrisgve"
+          ln -s "$GITHUB_WORKSPACE" "$(brew --repository)/Library/Taps/chrisgve/homebrew-tap"
+
       - name: Install formula
         run: |
-          brew install --formula Formula/workspace-qdrant.rb || {
+          brew install --formula workspace-qdrant-mcp || {
             echo "Install failed — this is expected until the first release publishes tarballs"
             exit 0
           }
