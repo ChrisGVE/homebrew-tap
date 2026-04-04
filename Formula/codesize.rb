@@ -1,7 +1,7 @@
 class Codesize < Formula
   desc "Report code size violations by file and function"
   homepage "https://github.com/ChrisGVE/codesize"
-  version "0.2.0"
+  version "0.2.1"
   license "MIT"
 
   on_macos do
