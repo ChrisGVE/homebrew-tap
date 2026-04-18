@@ -9,29 +9,29 @@
 class WorkspaceQdrantMcp < Formula
   desc "Project-scoped vector database for AI assistants with hybrid search"
   homepage "https://github.com/ChrisGVE/workspace-qdrant-mcp"
-  version "0.1.0"
+  version "0.1.3"
   license "MIT"
 
   # Platform-specific pre-built binary downloads
   on_macos do
     on_arm do
       url "https://github.com/ChrisGVE/workspace-qdrant-mcp/releases/download/v#{version}/workspace-qdrant-mcp-darwin-arm64.tar.gz"
-      # sha256 "PLACEHOLDER"
+      sha256 "0b629853b7bf57944eb92e5784d413bf8ead2d47528d4bb6032c6a4ffe46f785"
     end
     on_intel do
       url "https://github.com/ChrisGVE/workspace-qdrant-mcp/releases/download/v#{version}/workspace-qdrant-mcp-darwin-x64.tar.gz"
-      # sha256 "PLACEHOLDER"
+      sha256 "d3c652b91ded8f56b92db076b50de9ccc977a081334d831d3c436327a2f4609e"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/ChrisGVE/workspace-qdrant-mcp/releases/download/v#{version}/workspace-qdrant-mcp-linux-arm64.tar.gz"
-      # sha256 "PLACEHOLDER"
+      sha256 "721bf37285eaf26e718de5f9c1f3daec5e04d483755a9aaf5b919d1e290aa9bb"
     end
     on_intel do
       url "https://github.com/ChrisGVE/workspace-qdrant-mcp/releases/download/v#{version}/workspace-qdrant-mcp-linux-x64.tar.gz"
-      # sha256 "PLACEHOLDER"
+      sha256 "bb8f94e962b8467020e34e6d079c5d83f747f73aa3c3d2eddf5e08a0a86d184c"
     end
   end
 
