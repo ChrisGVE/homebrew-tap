@@ -11,6 +11,11 @@ cask "codexbar" do
 
   app "CodexBar.app"
 
+  postflight do
+    system_command "/usr/bin/xattr",
+                   args: ["-cr", "#{appdir}/CodexBar.app"]
+  end
+
   zap trash: [
     "~/Library/Application Support/CodexBar",
     "~/Library/Preferences/com.steipete.codexbar.plist",
