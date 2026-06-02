@@ -1,6 +1,6 @@
 cask "codexbar" do
-  version "0.32.3"
-  sha256 "1bfddd731961126fc4f08ab17eaa7c46bd131f72207fe0219b50c2666320570f"
+  version "0.32.4"
+  sha256 "8e917edaf1c689b2448a4ce9560e339085475d4f3be4e97d76720c2fec7b0524"
 
   url "https://github.com/ChrisGVE/CodexBar/releases/download/v#{version}/CodexBar-x86_64-v#{version}.zip"
   name "CodexBar"
