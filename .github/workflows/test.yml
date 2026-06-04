@@ -3,10 +3,10 @@ name: Formula Test
 on:
   push:
     branches: [main]
-    paths: ['Formula/**']
+    paths: ['Formula/**', 'Casks/**']
   pull_request:
     branches: [main]
-    paths: ['Formula/**']
+    paths: ['Formula/**', 'Casks/**']
   workflow_dispatch:
 
 jobs:
@@ -26,6 +26,23 @@ jobs:
 
       - name: Audit formula
         run: brew audit --except=checksum --formula workspace-qdrant-mcp
+
+  audit-cask:
+    name: Audit cask
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Register as tap
+        run: |
+          mkdir -p "$(brew --repository)/Library/Taps/chrisgve"
+          ln -s "$GITHUB_WORKSPACE" "$(brew --repository)/Library/Taps/chrisgve/homebrew-tap"
+          # Tap-trust enforcement (Homebrew, May 2026): trust the local tap so
+          # audit does not fail once trust becomes mandatory.
+          brew trust chrisgve/homebrew-tap || true
+
+      - name: Audit cask
+        run: brew audit --except=checksum --cask codexbar
 
   test:
     name: Test on ${{ matrix.os }}
