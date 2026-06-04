@@ -20,6 +20,9 @@ jobs:
         run: |
           mkdir -p "$(brew --repository)/Library/Taps/chrisgve"
           ln -s "$GITHUB_WORKSPACE" "$(brew --repository)/Library/Taps/chrisgve/homebrew-tap"
+          # Tap-trust enforcement (Homebrew, May 2026): trust the local tap so
+          # audit/install do not fail once trust becomes mandatory.
+          brew trust chrisgve/homebrew-tap || true
 
       - name: Audit formula
         run: brew audit --except=checksum --formula workspace-qdrant-mcp
@@ -44,6 +47,9 @@ jobs:
         run: |
           mkdir -p "$(brew --repository)/Library/Taps/chrisgve"
           ln -s "$GITHUB_WORKSPACE" "$(brew --repository)/Library/Taps/chrisgve/homebrew-tap"
+          # Tap-trust enforcement (Homebrew, May 2026): trust the local tap so
+          # install does not fail once trust becomes mandatory.
+          brew trust chrisgve/homebrew-tap || true
 
       - name: Install formula
         run: |
