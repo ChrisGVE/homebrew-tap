@@ -1,0 +1,65 @@
+name: Update moonswift formula
+
+# Triggered by a repository_dispatch from ChrisGVE/moonswift's release.yml once a
+# release is published (carrying the version + universal-binary sha256), or
+# manually via workflow_dispatch for recovery / re-runs.
+on:
+  repository_dispatch:
+    types: [moonswift-release-published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version (e.g. 0.1.0)"
+        required: true
+      darwin_universal_sha256:
+        description: "SHA256 of moonswift_universal.zip"
+        required: true
+
+jobs:
+  update:
+    name: Update formula version and checksum
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set variables
+        id: vars
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "version=${{ github.event.inputs.version }}" >> "$GITHUB_OUTPUT"
+            echo "sha256=${{ github.event.inputs.darwin_universal_sha256 }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "version=${{ github.event.client_payload.version }}" >> "$GITHUB_OUTPUT"
+            echo "sha256=${{ github.event.client_payload.darwin_universal_sha256 }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update formula
+        run: |
+          RAW_VERSION="${{ steps.vars.outputs.version }}"
+          VERSION="${RAW_VERSION#v}"
+          SHA="${{ steps.vars.outputs.sha256 }}"
+          FORMULA="Formula/moonswift.rb"
+
+          sed -i "s/version \".*\"/version \"${VERSION}\"/" "$FORMULA"
+          if [ -n "$SHA" ]; then
+            sed -i "s/sha256 \"PLACEHOLDER\"/sha256 \"${SHA}\"/" "$FORMULA"
+            sed -i "s/sha256 \"[a-f0-9]\{64\}\"/sha256 \"${SHA}\"/" "$FORMULA"
+          fi
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          title: "formula: update moonswift to ${{ steps.vars.outputs.version }}"
+          body: |
+            Automated formula update for moonswift v${{ steps.vars.outputs.version }}.
+
+            - Updated version
+            - Updated SHA256 checksum (universal binary)
+
+            Release: https://github.com/ChrisGVE/moonswift/releases/tag/v${{ steps.vars.outputs.version }}
+          branch: update-moonswift-${{ steps.vars.outputs.version }}
+          commit-message: "formula: update moonswift to ${{ steps.vars.outputs.version }}"
