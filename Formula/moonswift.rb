@@ -7,7 +7,7 @@ class Moonswift < Formula
   # macOS-only: MoonSwift renders through a vendored Rust ratatui FFI shim and
   # targets macOS 13+. The release artifact is a single universal (arm64 +
   # x86_64) binary, so there is no per-arch URL split.
-  depends_on macos: ">= :ventura"
+  depends_on macos: :ventura
 
   url "https://github.com/ChrisGVE/moonswift/releases/download/v#{version}/moonswift_universal.zip"
   sha256 "938f07cc1ca713f2526fcfdbe4698a523275c292829a6f8cf00677afbbcf3d69"
