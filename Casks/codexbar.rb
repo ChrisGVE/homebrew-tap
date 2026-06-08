@@ -7,7 +7,7 @@ cask "codexbar" do
   desc "AI-powered menu bar app for developer tools monitoring"
   homepage "https://github.com/steipete/CodexBar"
 
-  depends_on macos: ">= :sonoma"
+  depends_on macos: :sonoma
 
   app "CodexBar.app"
 
