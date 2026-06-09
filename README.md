@@ -28,9 +28,6 @@ variable will be removed in a later Homebrew release).
 ## Install
 
 ```bash
-# Cask (macOS menu-bar app — Intel + Apple Silicon)
-brew install --cask codexbar
-
 # Formulae
 brew install ChrisGVE/tap/codesize
 brew install ChrisGVE/tap/workspace-qdrant-mcp
@@ -40,7 +37,6 @@ brew install ChrisGVE/tap/workspace-qdrant-mcp
 
 | Name | Type | Description |
 |------|------|-------------|
-| [codexbar](https://github.com/steipete/CodexBar) | cask | AI-powered menu bar app for developer tools monitoring |
 | [codesize](https://github.com/ChrisGVE/codesize) | formula | Report code size violations by file and function |
 | [workspace-qdrant-mcp](https://github.com/ChrisGVE/workspace-qdrant-mcp) | formula | Project-scoped vector database for AI assistants with hybrid search |
 
